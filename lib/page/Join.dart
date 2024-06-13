@@ -12,7 +12,7 @@ class Join extends StatefulWidget {
 
 class _JoinState extends State<Join> {
   bool ishost = false;
-  final _formKey = GlobalKey<FormState>(); // For form validation
+  // final _formKey = GlobalKey<FormState>(); // For form validation
   final subjectController = TextEditingController(); // For subject input
   final teacherNameController = TextEditingController(); //
   final RoomIdController = TextEditingController();
@@ -43,8 +43,6 @@ class _JoinState extends State<Join> {
                   return const CreateLiveClassDialog();
                 },
               );
-
-              print('Create a Live Class');
             },
             child: Container(
               decoration: const BoxDecoration(
@@ -128,95 +126,12 @@ class _JoinState extends State<Join> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     subjectController.dispose();
     teacherNameController.dispose();
     RoomIdController.dispose();
   }
 }
-
-// Container(
-//   height: 350,
-//   width: 328,
-//   decoration: const BoxDecoration(
-//     borderRadius: BorderRadius.all(
-//       Radius.circular(50),
-//     ),
-//     color: Color.fromARGB(255, 241, 255, 186),
-//   ),
-//   child: Column(
-//     crossAxisAlignment: CrossAxisAlignment.start,
-//     children: [
-//       Row(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: [
-//           Padding(
-//             padding: const EdgeInsets.all(14.0),
-//             child: Container(
-//               height: 100,
-//               width: 100,
-//               decoration: const BoxDecoration(
-//                 borderRadius: BorderRadius.all(Radius.circular(10)),
-//                 color: Color.fromARGB(255, 223, 241, 149),
-//               ),
-//               child: const Icon(
-//                 Icons.person,
-//                 size: 90,
-//                 color: Color.fromARGB(255, 1, 60, 64),
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//       const SizedBox(
-//         height: 5,
-//       ),
-//       Padding(
-//         padding: const EdgeInsets.only(
-//           left: 20,
-//         ),
-//         child: Container(
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               Text(
-//                 'Electrical Circuits',
-//                 style: Theme.of(context)
-//                     .textTheme
-//                     .bodyLarge!
-//                     .copyWith(
-//                         fontFamily: 'Font1',
-//                         fontSize: 28,
-//                         fontWeight: FontWeight.w600),
-//               ),
-//               const SizedBox(
-//                 height: 8,
-//               ),
-//               const Text(
-//                 "Course Code    :CSE325",
-//                 style: TextStyle(fontFamily: 'Font2', fontSize: 18),
-//               ),
-//               const Text(
-//                 "Teacher Name  :DR.Karim Islam",
-//                 style: TextStyle(fontFamily: 'Font2', fontSize: 18),
-//               ),
-//               const Text(
-//                 "Email                :karim@diu.edu.bd",
-//                 style: TextStyle(fontFamily: 'Font2', fontSize: 18),
-//               ),
-//               const Text(
-//                 "Phone               :0123457895",
-//                 style: TextStyle(fontFamily: 'Font2', fontSize: 18),
-//               ),
-//               // media()
-//             ],
-//           ),
-//         ),
-//       ),
-//     ],
-//   ),
-// ),
 
 class CreateLiveClassDialog extends StatefulWidget {
   const CreateLiveClassDialog({super.key});
@@ -237,10 +152,16 @@ class _CreateLiveClassDialogState extends State<CreateLiveClassDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10.0))),
       backgroundColor: const Color.fromARGB(255, 1, 60, 64),
       title: const Text(
         'Create a Live Class',
-        style: TextStyle(color: Colors.white, fontFamily: 'Font1'),
+        style: TextStyle(
+            color: Colors.white,
+            fontSize: 26,
+            fontFamily: 'Font2',
+            fontWeight: FontWeight.w500),
       ),
       content: Form(
         key: _formKey,
@@ -252,12 +173,29 @@ class _CreateLiveClassDialogState extends State<CreateLiveClassDialog> {
               style: const TextStyle(color: Colors.white),
               controller: RoomIdController,
               decoration: const InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  // Set border for non-focused state
+                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  borderSide: BorderSide(
+                    color: Color.fromARGB(255, 7, 123,
+                        130), // Set desired non-focused border color
+                    width: 1.0,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  borderSide: BorderSide(
+                    color: Color.fromARGB(255, 8, 140, 147), // Set border color
+                    width: 1.0, //
+                  ),
+                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(
                     Radius.circular(5.0),
                   ),
                 ),
-                label: Text("Room ID"),
+                label: Text("Room Id"),
+                labelStyle: TextStyle(color: Colors.white),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -274,6 +212,15 @@ class _CreateLiveClassDialogState extends State<CreateLiveClassDialog> {
               style: const TextStyle(color: Colors.white),
               controller: subjectController, // Bind subject input
               decoration: const InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  // Set border for non-focused state
+                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  borderSide: BorderSide(
+                    color: Color.fromARGB(255, 7, 123,
+                        130), // Set desired non-focused border color
+                    width: 1.0,
+                  ),
+                ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   borderSide: BorderSide(
@@ -291,6 +238,7 @@ class _CreateLiveClassDialogState extends State<CreateLiveClassDialog> {
                 ),
                 // fillColor: Color.fromARGB(255, 255, 255, 255),
                 labelText: 'Subject',
+                labelStyle: TextStyle(color: Colors.white),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -305,7 +253,17 @@ class _CreateLiveClassDialogState extends State<CreateLiveClassDialog> {
               style: const TextStyle(color: Colors.white),
               controller: teacherNameController,
               decoration: const InputDecoration(
-                labelText: 'Teacher Name',
+                enabledBorder: OutlineInputBorder(
+                  // Set border for non-focused state
+                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  borderSide: BorderSide(
+                    color: Color.fromARGB(255, 7, 123,
+                        130), // Set desired non-focused border color
+                    width: 1.0,
+                  ),
+                ),
+                labelText: 'T./S. Name',
+                labelStyle: TextStyle(color: Colors.white),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   borderSide: BorderSide(
@@ -343,6 +301,9 @@ class _CreateLiveClassDialogState extends State<CreateLiveClassDialog> {
                 ),
                 const SizedBox(width: 4),
                 Switch(
+                    inactiveTrackColor: const Color.fromARGB(255, 3, 60, 63),
+                    inactiveThumbColor: const Color.fromARGB(255, 38, 115, 120),
+                    activeColor: const Color.fromARGB(255, 9, 159, 167),
                     value: ishost,
                     onChanged: (val) {
                       setState(() {
@@ -376,7 +337,7 @@ class _CreateLiveClassDialogState extends State<CreateLiveClassDialog> {
         ),
         ElevatedButton(
           style: ButtonStyle(
-            fixedSize: WidgetStateProperty.all<Size>(const Size(100.0, 40.0)),
+            fixedSize: WidgetStateProperty.all<Size>(const Size(148.0, 40.0)),
             shape: WidgetStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(
@@ -405,17 +366,7 @@ class _CreateLiveClassDialogState extends State<CreateLiveClassDialog> {
                   content: Text('Live class created successfully!'),
                 ),
               );
-              // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-              //   builder: (context) {
-              //     return LivePage(
-              //       roomID: RoomIdController.text,
-              //       isHost: ishost,
-              //       userId:
-              //           teacherNameController.text.replaceAll(' ', ' ').trim(),
-              //       userName: teacherNameController.text,
-              //     );
-              //   },
-              // ), (route) => false);
+
               Navigator.pop(context);
 
               Navigator.push(
@@ -436,7 +387,7 @@ class _CreateLiveClassDialogState extends State<CreateLiveClassDialog> {
             }
           },
           child: const Text(
-            'Create',
+            'Create & Join',
             style: TextStyle(
                 color: Colors.white, fontFamily: 'Font1', fontSize: 16),
           ),

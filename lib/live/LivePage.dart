@@ -8,12 +8,13 @@ class LivePage extends StatefulWidget {
   final String userName;
   final String userId;
 
-  const LivePage(
-      {super.key,
-      required this.roomID,
-      required this.isHost,
-      required this.userId,
-      required this.userName});
+  const LivePage({
+    super.key,
+    required this.roomID,
+    required this.isHost,
+    required this.userId,
+    required this.userName,
+  });
 
   @override
   State<LivePage> createState() => _LivePageState();
@@ -22,51 +23,100 @@ class LivePage extends StatefulWidget {
 class _LivePageState extends State<LivePage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: ZegoUIKitPrebuiltLiveAudioRoom(
-        appID: constant.appId,
-        appSign: constant.appSign,
-        userID: widget.userId,
-        userName: widget.userName,
-        roomID: widget.roomID,
-        events: ZegoUIKitPrebuiltLiveAudioRoomEvents(onLeaveConfirmation: (
-          ZegoLiveAudioRoomLeaveConfirmationEvent event,
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: SafeArea(
+        child: ZegoUIKitPrebuiltLiveAudioRoom(
+          appID: constant.appId,
+          appSign: constant.appSign,
+          userID: widget.userId,
+          userName: widget.userName,
+          roomID: widget.roomID,
+          events: ZegoUIKitPrebuiltLiveAudioRoomEvents(onLeaveConfirmation: (
+            ZegoLiveAudioRoomLeaveConfirmationEvent event,
 
-          /// defaultAction to return to the previous page
-          Future<bool> Function() defaultAction,
-        ) async {
-          return await showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                backgroundColor: Colors.blue[900]!.withOpacity(0.9),
-                title: const Text("This is your custom dialog",
-                    style: TextStyle(color: Colors.white70)),
-                content: const Text("You can customize this dialog as you like",
-                    style: TextStyle(color: Colors.white70)),
-                actions: [
-                  ElevatedButton(
-                    child: const Text("Cancel",
-                        style: TextStyle(color: Color.fromARGB(179, 0, 0, 0))),
-                    onPressed: () => Navigator.of(context).pop(false),
+            /// defaultAction to return to the previous page
+            Future<bool> Function() defaultAction,
+          ) async {
+            return await showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (BuildContext context) {
+                return PopScope(
+                  canPop: true,
+                  child: AlertDialog(
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                    backgroundColor: const Color.fromARGB(255, 1, 60, 64),
+                    title: const Text("Live Room",
+                        style: TextStyle(color: Colors.white)),
+                    content: const Text("Do You want to leave ?",
+                        style: TextStyle(color: Colors.white)),
+                    actions: [
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          shape:
+                              WidgetStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  5), // Set your desired radius value here (e.g., 10.0, 20.0)
+                            ),
+                          ),
+                          backgroundColor: const WidgetStatePropertyAll(
+                            Color.fromARGB(255, 7, 123, 130),
+                          ),
+                        ),
+                        child: const Text("Cancel",
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 255, 255, 255))),
+                        onPressed: () => Navigator.of(context).pop(false),
+                      ),
+                      ElevatedButton(
+                          style: ButtonStyle(
+                            shape:
+                                WidgetStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    5), // Set your desired radius value here (e.g., 10.0, 20.0)
+                              ),
+                            ),
+                            backgroundColor: const WidgetStatePropertyAll(
+                              Color.fromARGB(255, 7, 123, 130),
+                            ),
+                          ),
+                          child: const Text(
+                            "Exit",
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 255, 255, 255),
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop(true);
+                          }),
+                    ],
                   ),
-                  ElevatedButton(
-                      child: const Text("Exit"),
-                      onPressed: () {
-                        Navigator.of(context).pop(true);
-                      }),
-                ],
-              );
-            },
-          );
-        }),
-        config: widget.isHost
-            ? ZegoUIKitPrebuiltLiveAudioRoomConfig.host()
-            : ZegoUIKitPrebuiltLiveAudioRoomConfig.audience()
-          ..background = Container(
-            color: const Color.fromARGB(255, 1, 60, 64),
-          ),
+                );
+              },
+            );
+          }),
+          config: widget.isHost
+              ? ZegoUIKitPrebuiltLiveAudioRoomConfig.host()
+              : ZegoUIKitPrebuiltLiveAudioRoomConfig.audience()
+            ..background = Container(
+              color: const Color.fromARGB(255, 1, 60, 64),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  'Class Helper',
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontFamily: 'Font1',
+                      fontSize: 23,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600),
+                ),
+              ),
+            ),
+        ),
       ),
     );
   }

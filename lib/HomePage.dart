@@ -24,7 +24,7 @@ class _GroundState extends State<Ground> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
+      bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Stack(
           children: [
