@@ -3,6 +3,7 @@ import 'package:newapp/page/Favorite.dart';
 import 'package:newapp/page/Home.dart';
 import 'package:newapp/page/Join.dart';
 import 'package:newapp/page/More.dart';
+import 'package:newapp/widgets/drawer.dart';
 
 class Ground extends StatefulWidget {
   const Ground({super.key});
@@ -54,33 +55,7 @@ class _GroundState extends State<Ground> {
         elevation: 0,
         titleSpacing: 0, // Adjust title spacing as needed
       ),
-      endDrawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text('Drawer Header'),
-            ),
-            ListTile(
-              title: const Text('Item 1'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: const Text('Item 2'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-          ],
-        ),
-      ),
+      endDrawer: const drawer(),
       body: SingleChildScrollView(
           child: _pages
               .elementAt(_selectedIndex)), // Show the selected page directly

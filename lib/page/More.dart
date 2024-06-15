@@ -9,17 +9,19 @@ class More extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-          child: ElevatedButton(
-              onPressed: () async {
-                await AuthServices().signOut();
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Login(),
-                  ),
-                );
-              },
-              child: const Text("LogOut"))),
+        child: ElevatedButton(
+          onPressed: () async {
+            await AuthServices().signOut();
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const Login(),
+              ),
+            );
+          },
+          child: const Text("LogOut"),
+        ),
+      ),
     );
   }
 }
