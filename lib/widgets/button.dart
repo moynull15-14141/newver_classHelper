@@ -1,38 +1,55 @@
 import 'package:flutter/material.dart';
 
 class Button1 extends StatelessWidget {
-  const Button1({super.key, required this.siupButtonPressed, required this.btname});
+  const Button1({
+    super.key,
+    this.iconData, // Make IconData optional (use null for no icon)
+    required this.onPressed,
+    required this.btname,
+  });
 
+  final IconData? iconData; // Add the question mark (?)
+  final VoidCallback onPressed;
   final String btname;
-  final Function siupButtonPressed; // This should be a function, not a variable
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 185,
-      child: ElevatedButton(
-        style: ButtonStyle(
-          elevation:
-              const WidgetStatePropertyAll(0.0), // Adjust elevation as needed
-          backgroundColor: const WidgetStatePropertyAll(
-            Color.fromARGB(255, 7, 123, 130),
-          ),
-          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
+      child: TextButton(
+        // style: ButtonStyle(
+        //   fixedSize: WidgetStateProperty.all<Size>(const Size(250.0, 30.0)),
+        //   shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+        //     RoundedRectangleBorder(
+        //       borderRadius: BorderRadius.circular(5), // Adjust as needed
+        //     ),
+        //   ),
+        //   backgroundColor:
+        //       WidgetStateProperty.all(const Color.fromARGB(255, 7, 123, 130)),
+        // ),
+        onPressed: onPressed,
+        child: Row(
+          children: [
+            if (iconData != null) // Only include Icon if iconData is provided
+              Container(
+                height: 40,
+                width: 40,
+                color: Color.fromARGB(255, 1, 60, 64),
+                child: Icon(iconData!),
+              ),
+            Padding(
+              padding: const EdgeInsets.only(left: 5),
+              child: Text(
+                btname,
+                style: const TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontFamily: 'Font1', // Ensure font availability
+                ),
+              ),
             ),
-          ),
-        ),
-        onPressed: () {}, // Call the function passed as `onpressed`
-        child: Text(
-          btname,
-          style: const TextStyle(fontSize: 17, color: Colors.white),
+          ],
         ),
       ),
     );
   }
-}
-
-void siupButtonPressed() {
-  // Your button press logic here (e.g., print a message, navigate, etc.)
 }

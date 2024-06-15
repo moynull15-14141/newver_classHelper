@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newapp/login_si/login.dart';
 import 'package:newapp/login_si/service.dart';
+import 'package:newapp/widgets/button.dart';
 
 class drawer extends StatelessWidget {
   const drawer({
@@ -18,8 +19,28 @@ class drawer extends StatelessWidget {
               padding: const EdgeInsets.only(top: 100),
               child: Container(
                 height: 260,
+                width: double.infinity,
                 decoration: const BoxDecoration(
                   color: Color.fromARGB(255, 3, 84, 89),
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                        height: 60,
+                        width: 290,
+                        color: Color.fromARGB(255, 21, 139, 146),
+                        child: Column(
+                          children: [
+                            Button1(
+                              btname: 'Button',
+                              iconData: Icons.add,
+                              onPressed: () {
+                                print("button1");
+                              },
+                            ),
+                          ],
+                        )),
+                  ],
                 ),
               ),
             ),
@@ -44,34 +65,17 @@ class drawer extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      fixedSize: WidgetStateProperty.all<Size>(
-                          const Size(250.0, 30.0)),
-                      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              5), // Set your desired radius value here (e.g., 10.0, 20.0)
-                        ),
-                      ),
-                      backgroundColor: WidgetStateProperty.all(
-                          const Color.fromARGB(255, 7, 123, 130)),
-                    ),
-                    onPressed: () async {
-                      await AuthServices().signOut();
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Login(),
-                        ),
-                      );
-                    },
-                    child: Text("Log out",
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontFamily: 'Font1',
-                            color: Colors.white)),
-                  ),
+                  Button1(
+                      onPressed: () async {
+                        await AuthServices().signOut();
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Login(),
+                          ),
+                        );
+                      },
+                      btname: "             Log out")
                 ],
               ),
             ),
