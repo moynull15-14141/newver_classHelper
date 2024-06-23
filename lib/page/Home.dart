@@ -1,8 +1,8 @@
-// Home.dart
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:newapp/widgets/box1.dart';
+import 'package:newapp/widgets/get_user_name.dart';
 import 'package:newapp/widgets/search.dart';
 
 class Home extends StatefulWidget {
@@ -15,10 +15,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final CollectionReference fetchdata =
       FirebaseFirestore.instance.collection('user');
-  final CollectionReference fetchdatauser =
-      FirebaseFirestore.instance.collection('user2');
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  String? userName;
 
   Future<void> delet(String productId) async {
     await fetchdata.doc(productId).delete();
@@ -38,14 +35,12 @@ class _HomeState extends State<Home> {
               hello(context),
             ],
           ),
-          // user Name showing
           StreamBuilder<User?>(
             stream: firebaseAuth.authStateChanges(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final user = snapshot.data!; // Get logged-in user
-                return UserNameGet(
-                    user.uid, firebaseAuth); // Pass _auth instance
+                return UserNameWidget(uid: user.uid); // Pass the user ID
               } else {
                 return const Text('Please sign in'); // Prompt to sign in
               }
@@ -79,7 +74,7 @@ class _HomeState extends State<Home> {
               ),
               Material(
                 borderRadius: BorderRadius.circular(10),
-                elevation: 3.0, // Set here what you wish!
+                elevation: 3.0,
                 shadowColor: const Color.fromARGB(255, 1, 60, 64),
                 child: Container(
                   height: 360,
@@ -204,15 +199,12 @@ class _HomeState extends State<Home> {
               ),
             ],
           ),
-
-          // StreamBuilder for Firebase data
-
           StreamBuilder<QuerySnapshot>(
             stream: fetchdata.snapshots(),
             builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasData) {
                 return ListView.builder(
-                  shrinkWrap: true, // Prevent list from expanding
+                  shrinkWrap: true,
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
                     final DocumentSnapshot documentSnapshot =
@@ -241,36 +233,6 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-    );
-  }
-
-  StreamBuilder<QuerySnapshot<Object?>> UserNameGet(
-      String uid, FirebaseAuth auth) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: fetchdatauser.where('uid', isEqualTo: uid).snapshots(),
-      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasData) {
-          final DocumentSnapshot documentSnapshot = snapshot.data!.docs.first;
-          userName = documentSnapshot['name']; // Update state variable
-
-          return SizedBox(
-            height: 50,
-            width: double.infinity,
-            child: Text(
-              userName ??
-                  'Loading...', // Display loading message or default value
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    fontFamily: 'Font1',
-                    fontSize: 30,
-                  ),
-            ),
-          );
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        } else {
-          return const Center(child: CircularProgressIndicator());
-        }
-      },
     );
   }
 

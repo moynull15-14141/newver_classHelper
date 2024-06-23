@@ -33,8 +33,14 @@ class Button1 extends StatelessWidget {
               Container(
                 height: 40,
                 width: 40,
-                color: Color.fromARGB(255, 1, 60, 64),
-                child: Icon(iconData!),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(5),
+                  ),
+                  color: Color.fromARGB(255, 1, 60, 64),
+                ),
+                child: Icon(
+                    color: const Color.fromARGB(255, 241, 255, 186), iconData!),
               ),
             Padding(
               padding: const EdgeInsets.only(left: 5),
@@ -47,6 +53,13 @@ class Button1 extends StatelessWidget {
                 ),
               ),
             ),
+            // const Padding(
+            //   padding: EdgeInsets.only(left: 50),
+            //   child: Icon(
+            //     Icons.arrow_forward_ios,
+            //     color: Color.fromARGB(255, 241, 255, 186),
+            //   ),
+            // )
           ],
         ),
       ),

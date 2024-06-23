@@ -16,30 +16,72 @@ class drawer extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 100),
+              padding: const EdgeInsets.only(top: 140),
               child: Container(
-                height: 260,
+                height: 230,
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   color: Color.fromARGB(255, 3, 84, 89),
                 ),
                 child: Column(
                   children: [
-                    Container(
-                        height: 60,
-                        width: 290,
-                        color: Color.fromARGB(255, 21, 139, 146),
-                        child: Column(
-                          children: [
-                            Button1(
-                              btname: 'Button',
-                              iconData: Icons.add,
-                              onPressed: () {
-                                print("button1");
-                              },
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15.0),
+                      child: Container(
+                          decoration: const BoxDecoration(
+                            color: Color.fromARGB(255, 21, 139, 146),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(5),
                             ),
-                          ],
-                        )),
+                          ),
+                          height: 60,
+                          width: 260,
+                          child: Button1(
+                            btname: 'Light Mode',
+                            iconData: Icons.sunny,
+                            onPressed: () {
+                              print("button1");
+                            },
+                          )),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: Color.fromARGB(255, 21, 139, 146),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(5),
+                          ),
+                        ),
+                        height: 60,
+                        width: 260,
+                        child: Button1(
+                          btname: 'Notification',
+                          iconData: Icons.notifications,
+                          onPressed: () {
+                            print("button1");
+                          },
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: Color.fromARGB(255, 21, 139, 146),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(5),
+                          ),
+                        ),
+                        height: 60,
+                        width: 260,
+                        child: Button1(
+                          btname: 'Settings',
+                          iconData: Icons.settings,
+                          onPressed: () {},
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -48,35 +90,82 @@ class drawer extends StatelessWidget {
               height: 20,
             ),
             Container(
-              height: 200,
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 3, 84, 89),
-              ),
-            ),
-            const SizedBox(
-              height: 113,
-            ),
-            Container(
-              height: 80,
+              height: 160,
               width: double.infinity,
               decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 3, 84, 89),
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Button1(
-                      onPressed: () async {
-                        await AuthServices().signOut();
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const Login(),
-                          ),
-                        );
-                      },
-                      btname: "             Log out")
+                  Padding(
+                    padding: const EdgeInsets.only(top: 15.0),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(255, 21, 139, 146),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(5),
+                        ),
+                      ),
+                      height: 60,
+                      width: 260,
+                      child: Button1(
+                        btname: 'Support',
+                        iconData: Icons.support,
+                        onPressed: () {},
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(255, 21, 139, 146),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(5),
+                        ),
+                      ),
+                      height: 60,
+                      width: 260,
+                      child: Button1(
+                        btname: 'Legal & Policies',
+                        iconData: Icons.policy,
+                        onPressed: () {},
+                      ),
+                    ),
+                  ),
                 ],
+              ),
+            ),
+            const SizedBox(
+              height: 113,
+            ),
+            InkWell(
+              onTap: () async {
+                await AuthServices().signOut();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Login(),
+                  ),
+                );
+              },
+              child: Container(
+                height: 40,
+                width: 200,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                  color: Color.fromARGB(255, 21, 139, 146),
+                ),
+                child: const Center(
+                  child: Text(
+                    "Log Out",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 241, 255, 186),
+                      fontFamily: 'Font1',
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
               ),
             ),
           ],

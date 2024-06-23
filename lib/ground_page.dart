@@ -33,22 +33,7 @@ class _GroundState extends State<Ground> {
             padding: const EdgeInsets.only(
               right: 15,
             ),
-            child: Container(
-              height: 50,
-              width: 50,
-              color: const Color.fromARGB(255, 187, 203, 122),
-              child: IconButton(
-                onPressed: () {
-                  print("home page see");
-                  _scaffoldKey.currentState?.openEndDrawer();
-                },
-                icon: const Icon(
-                  Icons.grid_view,
-                  size: 35,
-                  color: Color.fromARGB(255, 1, 60, 64),
-                ),
-              ),
-            ),
+            child: Menu(scaffoldKey: _scaffoldKey),
           ),
         ],
         backgroundColor: Colors.transparent,
@@ -95,5 +80,33 @@ class _GroundState extends State<Ground> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+}
+
+class Menu extends StatelessWidget {
+  const Menu({
+    super.key,
+    required GlobalKey<ScaffoldState> scaffoldKey,
+  }) : _scaffoldKey = scaffoldKey;
+
+  final GlobalKey<ScaffoldState> _scaffoldKey;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 50,
+      width: 50,
+      color: const Color.fromARGB(255, 187, 203, 122),
+      child: IconButton(
+        onPressed: () {
+          _scaffoldKey.currentState?.openEndDrawer();
+        },
+        icon: const Icon(
+          Icons.grid_view,
+          size: 35,
+          color: Color.fromARGB(255, 1, 60, 64),
+        ),
+      ),
+    );
   }
 }
