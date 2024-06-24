@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:newapp/them/them_notifire.dart';
+import 'package:provider/provider.dart';
 import 'package:newapp/login_si/login.dart';
 import 'package:newapp/login_si/service.dart';
 import 'package:newapp/widgets/button.dart';
@@ -10,6 +12,7 @@ class drawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
     return Drawer(
       child: Container(
         color: const Color.fromARGB(255, 1, 60, 64),
@@ -38,9 +41,11 @@ class drawer extends StatelessWidget {
                           width: 260,
                           child: Button1(
                             btname: 'Light Mode',
-                            iconData: Icons.sunny,
+                            iconData: themeNotifier.isDarkMode
+                                ? Icons.wb_sunny
+                                : Icons.nightlight_round,
                             onPressed: () {
-                              print("button1");
+                              themeNotifier.toggleTheme();
                             },
                           )),
                     ),

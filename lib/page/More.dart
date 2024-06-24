@@ -129,7 +129,7 @@ class _MoreState extends State<More> {
               height: 10,
             ),
             Container(
-              height: 500,
+              height: 485,
               width: double.infinity,
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(
